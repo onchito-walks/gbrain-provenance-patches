@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Apply the gbrain-overlay patch series onto a clean upstream clone.
+# Apply the gbrain-guardrails patch series onto a clean upstream clone.
 #
 #   tools/apply-overlay.sh <gbrain-clone> [patches-dir] [base-ref]
 #

@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: gbrain-overlay contributors <noreply@example.invalid>
+From: gbrain-guardrails contributors <noreply@example.invalid>
 Date: Sun, 18 Oct 2026 00:00:00 +0000
-Subject: [PATCH] gbrain-overlay: local guarantees on top of upstream v0.60.178.0
+Subject: [PATCH] gbrain-guardrails: local guarantees on top of upstream v0.60.178.0
 
 ---
 
@@ -4330,7 +4330,7 @@ index 0000000000..8a92cd3f79
 +  page-prepare.ts in <gbrain-home>/src/gbrain at e90ad6edd found none; only the #6368
 +  tombstone-purge exclusion exists, page-prepare.ts:190-193 and :283-293), so B02 is new work that
 +  needs its own design, actual-operation tests (local/remote x live/dry) and focused commit.
-+  install/registry check: <workdir>/scripts/gbrain-overlay-registry.json
++  install/registry check: <workdir>/scripts/gbrain-guardrails-registry.json
 +  carries no B01/B02 patch body to reuse.
 +
 +Remaining after this checkpoint: B02 (this cohort) plus B03/B04/B05/B09/B10/B11/B12/B13/B15/

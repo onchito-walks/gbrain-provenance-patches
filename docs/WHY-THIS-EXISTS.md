@@ -1,9 +1,23 @@
 # Why this overlay exists
 
-GBrain upstream is a capable general-purpose brain. This overlay exists because
-a production deployment needed guarantees upstream does not yet supply. Each
-behaviour below is written as *the failure it prevents* — that is the test for
-whether it is still needed, and the test for whether upstream has absorbed it.
+**In plain terms.** GBrain is the clerk who keeps everything we know. It is good
+at the job, but it was built for everyone, and the way it was built it can finish
+a job and report *done* even when something inside went wrong. That is fine for a
+demo and not fine for the only copy of everything, because a system that quietly
+says "done" when it isn't teaches you to stop checking.
+
+We cannot retrain the clerk — upstream ships a new one every few weeks — so we
+apply a set of house rules as edits on top of whatever official version we
+install. Those rules are: stop and shout instead of reporting a success you did
+not achieve; run one heavy job at a time; never destroy the only copy; prove an
+upgrade before trusting it; and never let a check that cannot fail count as a
+check. This document is the rulebook, and this repository is the stack of edits.
+
+Technically: GBrain upstream is a capable general-purpose brain. This overlay
+exists because a production deployment needed guarantees upstream does not yet
+supply. Each behaviour below is written as *the failure it prevents* — that is
+the test for whether it is still needed, and the test for whether upstream has
+absorbed it.
 
 **Retirement rule:** the moment upstream provides the same guarantee at the same
 seam, the patch is deleted. Two behaviours have already retired this way.
