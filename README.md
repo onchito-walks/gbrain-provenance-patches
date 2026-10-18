@@ -1,7 +1,13 @@
-# gbrain-guardrails
+# gbrain-provenance-patches
 
-Guardrails for [GBrain](https://github.com/garrytan/gbrain): the house rules our
-production brain needs, stapled onto the official release as a patch.
+Provenance and recall patches for [GBrain](https://github.com/garrytan/gbrain):
+keep the evidence behind stored knowledge, distinguish surviving quotations from
+missing source passages, and preserve earlier atoms when extraction produces no
+safe replacement. A surviving quotation is evidence of its source, not proof that
+the claim is still true.
+
+Provider, queue, deployment and test-runner changes are supporting patches—not
+additional claims about provenance or memory quality.
 
 **We hope to delete this repository.** Every rule here is something upstream
 should do itself, and when it does, our copy goes away — two already have. The
@@ -26,46 +32,23 @@ Unchecked items are pending, not passes.
 - [ ] Finish read-only investigation of production atom impact; keep private evidence private.
 - [ ] Deploy the gated repair and verify the actual running callers.
 
-## Why guardrails, in plain terms
+## Why provenance patches
 
-GBrain is the clerk who keeps everything we know — years of notes, decisions,
-records, the lot. The clerk is good. But it was built for everyone, and the way
-it was built, when something goes wrong inside a drawer it can still finish the
-job and report *done*.
+An atom can outlive the document revision that produced it. A changed source hash
+does not tell us whether its quoted passage still exists, and an empty extraction
+does not establish that the previous atoms should disappear. Treating either as
+automatic replacement loses useful historical evidence.
 
-For a demo, that is fine. For the only copy of everything, it is not. A system
-that quietly says "done" when it isn't is worse than one that stops and shouts,
-because you stop checking — and the moment you stop checking is the moment you
-find out years later that a drawer has been empty since March.
+The provenance changes expose source/quotation status and historical assessments
+without presenting them as certification of truth. The lifecycle repair candidate
+preserves the prior generation on zero-yield extraction and refuses retirement
+until replacement requests commit. See the checklist for the engines and execution
+paths actually tested; an unchecked gate is not covered by these claims.
 
-So we wrote house rules for our clerk:
-
-- **If a drawer is jammed, stop and tell me.** Never report a success you did not
-  achieve. A page that could not be read is not a page that passed.
-- **One heavy job at a time.** Never start tonight's rebuild while last night's
-  is still running, and never let a killed job leave the lock held so tomorrow's
-  fire silently skips.
-- **Never destroy the only copy.** Keep the previous version until the new one
-  has proved itself, then keep the restore point until the recovery window
-  closes — because you cannot rebuild yesterday's database from today's.
-- **Prove it before you trust it.** "Installed" is not a claim about a file on
-  disk; it means the running process is executing the new bytes and the new bytes
-  passed their own checks in the place they actually run.
-- **A check that cannot fail is worse than no check.** Before we trust a gate, we
-  break something on purpose and confirm the gate notices.
-
-The clerk cannot be retrained. Upstream ships a new clerk every few weeks and we
-do not control that release, so the house rules are applied as edits on top of
-whatever official version we install. That stack of edits is this repository.
-
-That is also why it is a patch and not a fork: a fork drifts away from upstream
-and leaves us maintaining a whole clerk. A patch is small, reviewable, and
-deleted the moment it stops being needed.
-
-Concretely, **today GBrain can lose data, or claim a success it did not achieve,
-in ways that matter to us and do not yet matter to upstream.** Each rule is
-written up in [`docs/WHY-THIS-EXISTS.md`](docs/WHY-THIS-EXISTS.md) as *the failure
-it prevents*, so the retirement test for every single one is obvious.
+The snapshot also includes supporting reliability work. Its behaviour inventory
+and limitations are documented in [docs/WHY-THIS-EXISTS.md](docs/WHY-THIS-EXISTS.md).
+Retire each patch when upstream supplies the same tested guarantee or configuration
+replaces it. Retiring code never authorizes deleting historical knowledge.
 
 ## What is in here
 
@@ -91,7 +74,7 @@ cd gbrain
 git checkout v0.60.178.0
 
 # 2. Apply the overlay
-git am /path/to/gbrain-guardrails/patches/*.patch
+git am /path/to/gbrain-provenance-patches/patches/*.patch
 
 # 3. Install the toolchain the overlay needs (upstream >= v0.60.178.0 requires it)
 #    Bun >= 1.4.0 — see docs/PATCHING.md
