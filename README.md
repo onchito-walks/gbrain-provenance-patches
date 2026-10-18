@@ -7,6 +7,25 @@ production brain needs, stapled onto the official release as a patch.
 should do itself, and when it does, our copy goes away — two already have. The
 correct end state is an empty patch: upstream GBrain plus configuration.
 
+## Independent verification checklist
+
+This tracks the **scrubbed source**, not inherited production certification.
+Evidence and exact limitations: [independent verification](docs/INDEPENDENT-VERIFICATION.md).
+Unchecked items are pending, not passes.
+
+- [x] Apply the public patch to official `v0.60.178.0` in an independent sandbox.
+- [x] Build the scrubbed source with supported Bun 1.4.3.
+- [x] Run the two declared drift acceptance suites: 46 pass, 0 fail.
+- [x] Reproduce zero-yield atom retirement on the official base before repair.
+- [x] Verify a candidate lifecycle repair on PGLite: empty extraction preserves prior atoms and generation; failed replacement cannot retire predecessors.
+- [x] Run candidate regression suites: 331 pass, 0 fail across 25 files.
+- [x] Verify quotation-present versus quotation-missing and accepted-batch resume through production modules.
+- [x] Rehearse official `v0.60.179.0`: build and 231 passing tests across 20 files.
+- [ ] Reproduce the atom defects and verify the repair on isolated PostgreSQL.
+- [ ] Complete PostgreSQL regression acceptance (including explicit skips/failures).
+- [ ] Finish read-only investigation of production atom impact; keep private evidence private.
+- [ ] Deploy the gated repair and verify the actual running callers.
+
 ## Why guardrails, in plain terms
 
 GBrain is the clerk who keeps everything we know — years of notes, decisions,
